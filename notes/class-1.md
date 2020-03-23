@@ -12,9 +12,17 @@ Lambda Materials:
   + https://learn.lambdaschool.com/ds/module/recKGvwkPaEsfnwDL/
   + https://github.com/LambdaSchool/DS-Unit-3-Sprint-3-Productization-and-Cloud/tree/master/module1-web-application-development-with-flask
 
+Setup virtual env:
+
+```sh
+mkdir ~/Desktop/my-web-app-repo-name
+cd ~/Desktop/my-web-app-repo-name
+pipenv --python 3.7
+```
+
 Installing package dependencies:
 
-```
+```sh
 pipenv install Flask Flask-SQLAlchemy Flask-Migrate
 ```
 
@@ -77,6 +85,210 @@ Using Twitter Bootstrap to improve the look and feel of your HTML view templates
 Example of flash and redirect (BONUS):
   + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/routes/products_api.py#L31-L32
 
+Init file in "web_app" directory:
+
+```py
+# web_app/__init__.py
+
+from flask import Flask
+
+from web_app.routes.home_routes import home_routes
+from web_app.routes.book_routes import book_routes
+
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(home_routes)
+    app.register_blueprint(book_routes)
+    return app
+
+if __name__ == "__main__":
+    my_app = create_app()
+    my_app.run(debug=True)
+```
+
+Home routes:
+
+```py
+# web_app/routes/home_routes.py
+
+from flask import Blueprint
+
+home_routes = Blueprint("home_routes", __name__)
+
+@home_routes.route("/")
+def index():
+    x = 2 + 2
+    return f"Hello World! {x}"
+
+@home_routes.route("/about")
+def about():
+    return "About me"
+```
+
+Book routes:
+
+```py
+# web_app/routes/book_routes.py
+
+from flask import Blueprint, jsonify, request, render_template #, flash, redirect
+
+book_routes = Blueprint("book_routes", __name__)
+
+@book_routes.route("/books.json")
+def list_books():
+    books = [
+        {"id": 1, "title": "Book 1"},
+        {"id": 2, "title": "Book 2"},
+        {"id": 3, "title": "Book 3"},
+    ]
+    return jsonify(books)
+
+@book_routes.route("/books")
+def list_books_for_humans():
+    books = [
+        {"id": 1, "title": "Book 1"},
+        {"id": 2, "title": "Book 2"},
+        {"id": 3, "title": "Book 3"},
+    ]
+    return render_template("books.html", message="Here's some books", books=books)
+
+@book_routes.route("/books/new")
+def new_book():
+    return render_template("new_book.html")
+
+@book_routes.route("/books/create", methods=["POST"])
+def create_book():
+    print("FORM DATA:", dict(request.form))
+    # todo: store in database
+    return jsonify({
+        "message": "BOOK CREATED OK (TODO)",
+        "book": dict(request.form)
+    })
+    #flash(f"Book '{new_book.title}' created successfully!", "success")
+    #return redirect(f"/books")
+
+```
+
+Books Page:
+
+```html
+<!-- web_app/templates/books.html -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Books Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <h2>Welcome to the Books Page</h2>
+
+    <p>{{ message }}</p>
+
+    {% if books %}
+        <ul>
+        {% for book in books %}
+            <li>{{ book.title }}</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>Books not found.</p>
+    {% endif %}
+
+{% endblock %}
+```
+
+New Book Form:
+
+```html
+<!-- web_app/templates/new_book.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>New Book Page</h1>
+
+    <p>Please fill out the form and submit to create a new book!</p>
+
+    <form action="/books/create" method="POST">
+
+        <label>Title:</label>
+        <input type="text" name="title" placeholder="Book XYZ" value="Book XYZ">
+
+        <label>Author:</label>
+        <select name="author_name">
+          <option value="A1">Author 1</option>
+          <option value="A2">Author 2</option>
+          <option value="A3">Author 3</option>
+        </select>
+
+        <button>Submit</button>
+    </form>
+{% endblock %}
+```
+
+Shared layout, basic:
+
+```html
+<!-- web_app/templates/layout.html -->
+
+<!doctype html>
+<html>
+  <head>
+    {% block title %}
+      <title>My Starter Web App | Helps students learn how to use the Flask Python package.</title>
+    {% endblock %}
+  </head>
+
+  <body>
+
+    <!-- SITE NAVIGATION -->
+    <div class="container">
+      <div id="nav">
+        {% block nav %}
+          <h1><a href="/">My Web App</a></h1>
+          <ul>
+            <li><a href="/books">Books Page</a></li>
+            <li><a href="/books/new">New Book Form</a></li>
+          </ul>
+        {% endblock %}
+      </div>
+      <hr>
+
+      <!-- PAGE CONTENTS -->
+      <div id="content">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <!-- FOOTER -->
+      <div id="footer">
+        <hr>
+        &copy; Copyright 2019 Prof. MJ Rossetti |
+        <a href="https://github.com/prof-rossetti/">source</a>
+      </div>
+    </div>
+
+  </body>
+</html>
+```
+
+Optionally [incorporating Twitter Bootstrap](/templates/bootstrap_layout.html).
+
+Running the Flask App, after new "web_app" organizational structure in place:
+
+```sh
+# Mac:
+FLASK_APP=web_app flask run
+
+# Windows:
+set FLASK_APP=web_app # one-time thing, to set the env var
+flask run
+```
+
 ## Part III
 
 Flask-SQLAlchemy:
@@ -86,19 +298,61 @@ Flask-SQLAlchemy:
   + https://docs.sqlalchemy.org/en/13/core/type_basics.html
   + https://docs.sqlalchemy.org/en/13/orm/join_conditions.html?highlight=foreign%20key
 
-```sh
-# .gitignore
-
-# ignore development sqlite database:
-*.db
-*.sqlite3
-```
-
-
-
 Flask-Migrate:
   + https://flask-migrate.readthedocs.io/en/latest/
   + https://github.com/miguelgrinberg/Flask-Migrate
+
+
+Defining database model class(es):
+
+```py
+# web_app/models.py
+
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+db = SQLAlchemy()
+
+migrate = Migrate()
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128))
+    author_id = db.Column(db.String(128))
+```
+
+Updating app construction:
+
+```py
+# web_app/__init__.py
+
+from flask import Flask
+
+from web_app.models import db, migrate
+from web_app.routes.home_routes import home_routes
+from web_app.routes.book_routes import book_routes
+
+def create_app():
+    app = Flask(__name__)
+
+    #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///web_app_11.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////Users/mjr/Desktop/web-app-inclass-11/web_app_12.db"
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    app.register_blueprint(home_routes)
+    app.register_blueprint(book_routes)
+
+    return app
+
+if __name__ == "__main__":
+    my_app = create_app()
+    my_app.run(debug=True)
+
+```
+
+Migrating the database:
 
 ```sh
 FLASK_APP=web_app flask db init #> generates app/migrations dir

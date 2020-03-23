@@ -338,6 +338,29 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
     author_id = db.Column(db.String(128))
+
+def parse_records(database_records):
+    """
+    A helper method for converting a list of database record objects into a list of dictionaries, so they can be returned as JSON
+
+    Param: database_records (a list of db.Model instances)
+
+    Example: parse_records(User.query.all())
+
+    Returns: a list of dictionaries, each corresponding to a record, like...
+        [
+            {"id": 1, "title": "Book 1"},
+            {"id": 2, "title": "Book 2"},
+            {"id": 3, "title": "Book 3"},
+        ]
+    """
+    parsed_records = []
+    for record in database_records:
+        print(record)
+        parsed_record = record.__dict__
+        del parsed_record["_sa_instance_state"]
+        parsed_records.append(parsed_record)
+    return parsed_records
 ```
 
 Updating app construction:
@@ -371,12 +394,27 @@ if __name__ == "__main__":
 
 ```
 
-Migrating the database:
+Creating and migrating the database:
 
 ```sh
+# Windows users can omit the "FLASK_APP=web_app" part...
+
 FLASK_APP=web_app flask db init #> generates app/migrations dir
 
 # run both when changing the schema:
 FLASK_APP=web_app flask db migrate #> creates the db (with "alembic_version" table)
 FLASK_APP=web_app flask db upgrade #> creates the specified tables
+```
+
+Updating routes to integrate with database:
+
+```sh
+# SELECT * FROM books
+book_records = Book.query.all()
+print(book_records)
+
+# INSERT INTO books ...
+new_book = Book(title=request.form["title"], author_id=request.form["author_name"])
+db.session.add(new_book)
+db.session.commit()
 ```

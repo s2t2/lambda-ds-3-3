@@ -208,7 +208,7 @@ Books Page:
     {% if books %}
         <ul>
         {% for book in books %}
-            <li>{{ book.title }}</li>
+            <li>{{ book["title"] }}</li>
         {% endfor %}
         </ul>
 
@@ -295,7 +295,7 @@ Shared layout, basic:
 </html>
 ```
 
-Optionally [incorporating Twitter Bootstrap](/templates/bootstrap_layout.html).
+...Or optionally reference this [shared layout which leverages Twitter Bootstrap](/templates/bootstrap_layout.html).
 
 Running the Flask App, after new "web_app" organizational structure in place:
 

@@ -41,8 +41,8 @@ Flask:
 
 "Twitoff" Flask App Examples:
 
-  + [For DS 11](https://github.com/s2t2/web-app-inclass-11)
-  + [For DS PT3](https://github.com/s2t2/web-app-inclass-pt3)
+  + [For DS 11](https://github.com/s2t2/web-app-inclass-11/commits/master)
+  + [For DS PT3](https://github.com/s2t2/web-app-inclass-pt3/commits/prep-4-deploy)
 
 Other Flask App Examples (FYI / BONUS):
 
@@ -55,6 +55,25 @@ Testing a Flask App (FYI / BONUS):
   + https://flask.palletsprojects.com/en/1.1.x/testing/
   + https://github.com/prof-rossetti/products-api-flask/blob/master/tests/products_api/app_test.py
 
+Defining a basic Flask App:
+
+```py
+# app.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    x = 2 + 2
+    return f"Hello World! {x}"
+
+@app.route("/about")
+def about():
+    return "About me"
+```
+
 Running a Flask App:
 
 ```sh
@@ -66,7 +85,7 @@ set FLASK_APP=app.py # one-time thing, to set the env var
 flask run
 ```
 
-> NOTE: right now our app is located in the "app.py" file, which is why we use `FLASK_APP=app.py` but we will soon be changing this when our app grows larger
+> NOTE: right now our app is located in the "app.py" file, which is why we use `FLASK_APP=app.py` but we will soon be changing this when our app grows larger...
 
 ## Part II
 

@@ -1,6 +1,10 @@
 
 # Class 4
 
+> If you haven't already, please sign up for a Heroku account and make sure you have the CLI set up!
+>  + https://signup.heroku.com/
+>  + https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
 Lambda Materials:
 
   + https://learn.lambdaschool.com/ds/module/recpPYQdaOmZdBSYq/

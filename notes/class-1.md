@@ -12,6 +12,12 @@ Lambda Materials:
   + https://learn.lambdaschool.com/ds/module/recKGvwkPaEsfnwDL/
   + https://github.com/LambdaSchool/DS-Unit-3-Sprint-3-Productization-and-Cloud/tree/master/module1-web-application-development-with-flask
 
+Installing package dependencies:
+
+```
+pipenv install Flask Flask-SQLAlchemy Flask-Migrate
+```
+
 ## Part I
 
 HTTP Slides:
@@ -41,6 +47,19 @@ Testing a Flask App (FYI / BONUS):
   + https://flask.palletsprojects.com/en/1.1.x/testing/
   + https://github.com/prof-rossetti/products-api-flask/blob/master/tests/products_api/app_test.py
 
+Running a Flask App:
+
+```sh
+# Mac:
+FLASK_APP=app.py flask run
+
+# Windows:
+set FLASK_APP=app.py # one-time thing, to set the env var
+flask run
+```
+
+> NOTE: right now our app is located in the "app.py" file, which is why we use `FLASK_APP=app.py` but we will soon be changing this when our app grows larger
+
 ## Part II
 
 Flask View Templates:
@@ -67,16 +86,24 @@ Flask-SQLAlchemy:
   + https://docs.sqlalchemy.org/en/13/core/type_basics.html
   + https://docs.sqlalchemy.org/en/13/orm/join_conditions.html?highlight=foreign%20key
 
-```py
+```sh
+# .gitignore
 
+# ignore development sqlite database:
+*.db
+*.sqlite3
 ```
+
+
 
 Flask-Migrate:
   + https://flask-migrate.readthedocs.io/en/latest/
   + https://github.com/miguelgrinberg/Flask-Migrate
 
 ```sh
-FLASK_APP=web_app flask db init
-FLASK_APP=web_app flask db migrate
-FLASK_APP=web_app flask db upgrade
+FLASK_APP=web_app flask db init #> generates app/migrations dir
+
+# run both when changing the schema:
+FLASK_APP=web_app flask db migrate #> creates the db (with "alembic_version" table)
+FLASK_APP=web_app flask db upgrade #> creates the specified tables
 ```

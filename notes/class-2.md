@@ -51,7 +51,8 @@ A simple example API to get started with (can use API KEY "abc123") (BONUS):
   + https://www.alphavantage.co/documentation/#daily
 
 ```py
-# web_app/stocks_service.py
+# web_app/services/stocks_service.py
+
 import requests
 import json
 
@@ -72,7 +73,6 @@ print("LATEST CLOSING PRICE:", latest_close)
 #breakpoint()
 ```
 
-
 The Basilica API:
 
   + https://www.basilica.ai/quickstart/python/
@@ -80,7 +80,8 @@ The Basilica API:
   + https://basilica-client.readthedocs.io/en/latest/basilica.html
 
 ```py
-# web_app/basilica_service.py
+# web_app/services/basilica_service.py
+
 import basilica
 import os
 from dotenv import load_dotenv
@@ -89,16 +90,30 @@ load_dotenv()
 
 API_KEY = os.getenv("BASILICA_API_KEY")
 
-connection = basilica.Connection(API_KEY)
+def basilica_api_client():
+    connection = basilica.Connection(API_KEY)
+    print(type(connection)) #> <class 'basilica.Connection'>
+    return connection
 
 if __name__ == "__main__":
+
+    print("---------")
+    connection = basilica_api_client()
+
+    print("---------")
+    sentence = "Hello again"
+    sent_embeddings = connection.embed_sentence(sentence)
+    print(list(sent_embeddings))
+
+    print("---------")
     sentences = ["Hello world!", "How are you?"]
+    print(sentences)
+    # it is more efficient to make a single request for all sentences...
     embeddings = connection.embed_sentences(sentences)
+    print("EMBEDDINGS...")
     print(type(embeddings))
-    for embedding in embeddings:
-        print(len(embedding)) #> 768
-        print(list(embedding)) # [[0.8556405305862427, ...], ...]
-        print("-------------")
+    print(list(embeddings)) # [[0.8556405305862427, ...], ...]
+
 ```
 
 ## Part II

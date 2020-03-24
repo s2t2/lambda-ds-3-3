@@ -45,37 +45,128 @@ def reset_db():
     return jsonify({"message": "DB RESET OK"})
 ```
 
+Updating existing routing and views to facilitate the storage of Tweets and Users, and the desired application flow.
+
+```py
+# web_app/routes/twitter_routes.py
+
+# ...
+
+@twitter_routes.route("/users")
+@twitter_routes.route("/users.json")
+def list_users():
+    db_users = User.query.all()
+    users_response = parse_records(db_users)
+    return jsonify(users_response)
+
+@twitter_routes.route("/users/<screen_name>")
+def get_user(screen_name=None):
+    print(screen_name)
+
+    # ...
+
+    return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
+
+```
+
+```html
+<!-- web_app/templates/user.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Twitter User: {{ user.screen_name }} </h2>
+
+    <p>Name: {{ user.name }}</p>
+    <p>Location: {{ user.location }}</p>
+    <p>Followers: {{ user.followers_count }}</p>
+
+    {% if tweets %}
+        <ul>
+        {% for status in tweets %}
+            <li>{{ status.full_text }}</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No tweets found.</p>
+    {% endif %}
+
+{% endblock %}
+```
+
+> CHALLENGE: Can you display the tweets in a twitter bootstrap table, instead of a list?
 
 ## Part II
 
-Updating existing routing and views to facilitate the storage of Tweets and Users, and the desired application flow.
+As you are working with your own predictive models (like the iris example below), make sure you know how to use pickle to save the model to a file, and also later reconstitute the model from the file.
 
-## Part III
+```py
+# web_app/classifier.py
 
-Integrating with an example predictive model (Iris).
+import os
+import pickle
+
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression # for example
+
+MODEL_FILEPATH = os.path.join(os.path.dirname(__file__), "..", "models", "latest_model.pkl")
+
+def train_and_save_model():
+    print("TRAINING THE MODEL...")
+    X, y = load_iris(return_X_y=True)
+    #print(type(X), X.shape) #> <class 'numpy.ndarray'> (150, 4)
+    #print(type(y), y.shape) #> <class 'numpy.ndarray'> (150,)
+    classifier = LogisticRegression().fit(X, y)
+
+    print("SAVING THE MODEL...")
+    with open(MODEL_FILEPATH, "wb") as model_file:
+        pickle.dump(classifier, model_file)
+
+    return classifier
+
+def load_model():
+    print("LOADING THE MODEL...")
+    with open(MODEL_FILEPATH, "rb") as model_file:
+        saved_model = pickle.load(model_file)
+    return saved_model
+
+if __name__ == "__main__":
+
+    train_and_save_model()
+
+    clf = load_model()
+    print("CLASSIFIER:", clf)
+
+    X, y = load_iris(return_X_y=True) # just to have some data to use when predicting
+    inputs = X[:2, :]
+    print(type(inputs), inputs)
+
+    result = clf.predict(inputs)
+    print("RESULT:", result)
+```
+
+Integrating the model into our app (just an example):
 
 ```py
 # web_app/routes/stats_routes.py
 
 from flask import Blueprint, request, jsonify, render_template
+from sklearn.datasets import load_iris # just to have some data to use when predicting
 
-from sklearn.datasets import load_iris
-from sklearn.linear_model import LogisticRegression # for example
+from web_app.classifier import load_model
 
 stats_routes = Blueprint("stats_routes", __name__)
 
 @stats_routes.route("/iris")
 def iris():
-    X, y = load_iris(return_X_y=True)
-    classifier = LogisticRegression(
-        random_state=0,
-        solver="lbfgs",
-        multi_class="multinomial"
-    ).fit(X, y)
-
-    result = classifier.predict(X[:2, :])
+    model = load_model()
+    X, y = load_iris(return_X_y=True) # just to have some data to use when predicting
+    result = model.predict(X[:2, :])
     return str(result)
 ```
+
+## Part III
 
 Training our own model...
 
@@ -200,4 +291,4 @@ def predict():
 {% endblock %}
 ```
 
-Instead of hard-coding the drop-down menu's options, can you revise this last jinja template to loop through all existing users in the database to populate the options?
+> CHALLENGE: Instead of hard-coding the drop-down menu's options, can you revise this last jinja template to loop through all existing users in the database to populate the options?

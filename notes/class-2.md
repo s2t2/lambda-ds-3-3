@@ -123,7 +123,9 @@ The Twitter API and Tweepy Package:
   + https://developer.twitter.com/en/docs
   + https://github.com/tweepy/tweepy
   + http://docs.tweepy.org/en/latest/
-  + (BONUS) https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/tweepy.md
+  + http://docs.tweepy.org/en/latest/api.html#API.get_user
+  + http://docs.tweepy.org/en/latest/api.html#API.user_timeline
+  + https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/tweepy.md (FYI / BONUS)
 
 Twitter Service:
 

@@ -92,9 +92,15 @@ flask run
 Flask View Templates:
   + https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/
   + https://jinja.palletsprojects.com/en/2.11.x/templates/
+  + https://jinja.palletsprojects.com/en/2.11.x/tricks/
 
 Twitter Bootstrap (BONUS):
+  + https://getbootstrap.com/
   + https://getbootstrap.com/docs/4.4/getting-started/introduction/
+  + https://getbootstrap.com/docs/4.0/components/navbar/
+  + https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/
+  + https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes
+  + https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
 
 Using Twitter Bootstrap to improve the look and feel of your HTML view templates, and inheriting HTML contents from a common base layout, and other template examples (BONUS):
   + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/layout.html
@@ -295,7 +301,9 @@ Shared layout, basic:
 </html>
 ```
 
-...Or optionally reference this [shared layout which leverages Twitter Bootstrap](/templates/bootstrap_layout.html).
+...Or optionally reference this [Twitter Bootstrap Navbar Layout](/templates/bootstrap_layout.html).
+
+... Or this slightly more complex [Twitter Bootstrap Navbar Layout](/templates/bootstrap_nav_layout.html), in which case you'll also need to add `{% set active_page = "books" %}` to the "books.html" and `{% set active_page = "new_book" %}` to the "new_book.html".
 
 Running the Flask App, after new "web_app" organizational structure in place:
 

@@ -37,12 +37,21 @@ from web_app.models import db
 
 admin_routes = Blueprint("admin_routes", __name__)
 
-@admin_routes.route("/admin/reset")
+@admin_routes.route("/admin/db/reset")
 def reset_db():
     print(type(db))
     db.drop_all()
     db.create_all()
     return jsonify({"message": "DB RESET OK"})
+
+@admin_routes.route("/admin/db/seed")
+def seed_db():
+    print(type(db))
+    # TODO: refactor the existing user and tweet storage logic from our twitter_routes into a re-usable function
+    # ... so we can "seed" our database with some example users and tweets
+    # ... to ensure that it is ready to make predictions later
+
+    return jsonify({"message": "DB SEEDED OK (TODO)"})
 ```
 
 Updating existing routing and views to facilitate the storage of Tweets and Users, and the desired application flow.
@@ -101,6 +110,8 @@ def get_user(screen_name=None):
 
 As you are working with your own predictive models (like the iris example below), make sure you know how to use pickle to save the model to a file, and also later reconstitute the model from the file.
 
+> FYI: the purpose of the code below is not to train the best model, but rather to show an example of how to use a model
+
 ```py
 # web_app/classifier.py
 
@@ -117,7 +128,8 @@ def train_and_save_model():
     X, y = load_iris(return_X_y=True)
     #print(type(X), X.shape) #> <class 'numpy.ndarray'> (150, 4)
     #print(type(y), y.shape) #> <class 'numpy.ndarray'> (150,)
-    classifier = LogisticRegression().fit(X, y)
+    classifier = LogisticRegression() # for example
+    classifier.fit(X, y)
 
     print("SAVING THE MODEL...")
     with open(MODEL_FILEPATH, "wb") as model_file:
@@ -217,7 +229,7 @@ def predict():
         labels.append(user_b.screen_name)
         embeddings.append(tweet.embedding)
 
-    classifier = LogisticRegression()
+    classifier = LogisticRegression() # for example
     classifier.fit(embeddings, labels)
 
     print("-----------------")

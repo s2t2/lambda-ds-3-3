@@ -1,62 +1,43 @@
 
-
-
+import tweepy
 import os
 from dotenv import load_dotenv
-import tweepy
 
 load_dotenv()
 
-consumer_key = os.getenv("TWITTER_API_KEY", default="OOPS")
-consumer_secret = os.getenv("TWITTER_API_SECRET", default="OOPS")
-access_token = os.getenv("TWITTER_ACCESS_TOKEN", default="OOPS")
-access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET", default="OOPS")
+TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
+TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
+TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
-# AUTHENTICATE
+def twitter_api():
+    auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+    print("AUTH", auth)
+    api = tweepy.API(auth)
+    print("API", api)
+    #print(dir(api))
+    return api
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+if __name__ == "__main__":
 
-# INITIALIZE API CLIENT
+    api = twitter_api()
+    user = api.get_user("Chrisalbon")
+    print("USER", user)
+    print(user.screen_name)
+    print(user.name)
+    print(user.followers_count)
 
-client = tweepy.API(auth)
-print(client)
-
-# ISSUE REQUESTS
-
-user = client.me() # get information about the currently authenticated user
-print(user)
-
-tweets = client.user_timeline() # get a list of tweets posted by the currently authenticated user
-
-# PARSE RESPONSES
-
-print("---------------------------------------------------------------")
-print(f"RECENT TWEETS BY @{user.screen_name} ({user.followers_count} FOLLOWERS / {user.friends_count} FOLLOWING):")
-print("---------------------------------------------------------------")
-
-for tweet in tweets:
-    created_on = tweet.created_at.strftime("%Y-%m-%d")
-    print(" + ", tweet.id_str, created_on, tweet.text)
+    #breakpoint()
 
 
 
 
 
-
-elon = client.get_user("elonmusk")
-
-print("---------------------------------------------------------------")
-print(f"RECENT TWEETS BY @{elon.screen_name} ({elon.followers_count} FOLLOWERS / {elon.friends_count} FOLLOWING):")
-print("---------------------------------------------------------------")
-
-elon_tweets = elon.timeline(
-    count=200,
-    exclude_replies=True,
-    include_rts=False,
-    tweet_mode='extended'
-)
-
-for tweet in elon_tweets:
-    created_on = tweet.created_at.strftime("%Y-%m-%d")
-    print(" + ", tweet.id_str, created_on, tweet.full_text)
+    #public_tweets = api.home_timeline()
+    #
+    #for tweet in public_tweets:
+    #    print(type(tweet)) #> <class 'tweepy.models.Status'>
+    #    #print(dir(tweet))
+    #    print(tweet.text)
+    #    print("-------------")

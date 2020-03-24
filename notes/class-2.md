@@ -72,16 +72,6 @@ print("LATEST CLOSING PRICE:", latest_close)
 #breakpoint()
 ```
 
-## Part II
-
-The Twitter API and Tweepy Package:
-
-  + https://developer.twitter.com/en/docs
-  + https://github.com/tweepy/tweepy
-  + http://docs.tweepy.org/en/latest/
-  + (BONUS) https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/tweepy.md
-
-## Part III
 
 The Basilica API:
 
@@ -109,4 +99,122 @@ if __name__ == "__main__":
         print(len(embedding)) #> 768
         print(list(embedding)) # [[0.8556405305862427, ...], ...]
         print("-------------")
+```
+
+## Part II
+
+The Twitter API and Tweepy Package:
+
+  + https://developer.twitter.com/en/docs
+  + https://github.com/tweepy/tweepy
+  + http://docs.tweepy.org/en/latest/
+  + (BONUS) https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/tweepy.md
+
+Twitter Service:
+
+```py
+# web_app/services/twitter_service.py
+
+import tweepy
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
+TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
+TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+
+def twitter_api():
+    auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+    print("AUTH", auth)
+    api = tweepy.API(auth)
+    print("API", api)
+    #print(dir(api))
+    return api
+
+if __name__ == "__main__":
+
+    api = twitter_api()
+    user = api.get_user("Chrisalbon")
+    print("USER", user)
+    print(user.screen_name)
+    print(user.name)
+    print(user.followers_count)
+
+    #breakpoint()
+
+    #public_tweets = api.home_timeline()
+    #
+    #for tweet in public_tweets:
+    #    print(type(tweet)) #> <class 'tweepy.models.Status'>
+    #    #print(dir(tweet))
+    #    print(tweet.text)
+    #    print("-------------")
+```
+
+## Part III
+
+Saving tweets and users in the database.
+
+Twitter Routes:
+
+```py
+# web_app/routes/twitter_routes.py
+from flask import Blueprint, render_template, jsonify
+from web_app.models import db, User, Tweet, parse_records
+from web_app.services.twitter_service import twitter_api_client
+from web_app.services.basilica_service import basilica_api_client
+
+twitter_routes = Blueprint("twitter_routes", __name__)
+
+@twitter_routes.route("/users/<screen_name>")
+def get_user(screen_name=None):
+    print(screen_name)
+
+    api = twitter_api_client()
+
+    twitter_user = api.get_user(screen_name)
+    statuses = api.user_timeline(screen_name, tweet_mode="extended", count=150, exclude_replies=True, include_rts=False)
+    print("STATUSES COUNT:", len(statuses))
+    #return jsonify({"user": user._json, "tweets": [s._json for s in statuses]})
+
+    db_user = User.query.get(twitter_user.id) or User(id=twitter_user.id)
+    db_user.screen_name = twitter_user.screen_name
+    db_user.name = twitter_user.name
+    db_user.location = twitter_user.location
+    db_user.followers_count = twitter_user.followers_count
+    db.session.add(db_user)
+    db.session.commit()
+    #return "OK"
+    #breakpoint()
+
+    basilica_api = basilica_api_client()
+
+    all_tweet_texts = [status.full_text for status in statuses]
+    embeddings = list(basilica_api.embed_sentences(all_tweet_texts, model="twitter"))
+    print("NUMBER OF EMBEDDINGS", len(embeddings))
+
+    # TODO: explore using the zip() function maybe...
+    counter = 0
+    for status in statuses:
+        print(status.full_text)
+        print("----")
+        #print(dir(status))
+        # Find or create database tweet:
+        db_tweet = Tweet.query.get(status.id) or Tweet(id=status.id)
+        db_tweet.user_id = status.author.id # or db_user.id
+        db_tweet.full_text = status.full_text
+        #embedding = basilica_client.embed_sentence(status.full_text, model="twitter") # todo: prefer to make a single request to basilica with all the tweet texts, instead of a request per tweet
+        embedding = embeddings[counter]
+        print(len(embedding))
+        db_tweet.embedding = embedding
+        db.session.add(db_tweet)
+        counter+=1
+    db.session.commit()
+    #breakpoint()
+    return "OK"
+    #return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
 ```

@@ -301,9 +301,9 @@ Shared layout, basic:
 </html>
 ```
 
-...Or optionally reference this [Twitter Bootstrap Navbar Layout](/templates/bootstrap_layout.html).
+...Or optionally reference this [Twitter Bootstrap Navbar Layout](/reference_code/templates/bootstrap_layout.html).
 
-... Or this slightly more complex [Twitter Bootstrap Navbar Layout](/templates/bootstrap_nav_layout.html), in which case you'll also need to add `{% set active_page = "books" %}` to the "books.html" and `{% set active_page = "new_book" %}` to the "new_book.html".
+... Or this slightly more complex [Twitter Bootstrap Navbar Layout](/reference_code/templates/bootstrap_nav_layout.html), in which case you'll also need to add `{% set active_page = "books" %}` to the "books.html" and `{% set active_page = "new_book" %}` to the "new_book.html".
 
 Running the Flask App, after new "web_app" organizational structure in place:
 

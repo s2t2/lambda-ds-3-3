@@ -11,13 +11,6 @@ Other Materials:
 
   + https://towardsdatascience.com/create-an-api-to-deploy-machine-learning-models-using-flask-and-heroku-67a011800c50
 
-What to do when a model file is too large for GitHub / Heroku? (BONUS):
-
-  + Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
-  + Store the model remotely:
-    + https://aws.amazon.com/s3/
-    + https://console.cloud.google.com/storage/browser/brexitmeter-bucket/weights?authuser=1&project=brexitmeter
-
 Installing Package Dependencies:
 
 ```sh
@@ -108,7 +101,7 @@ def get_user(screen_name=None):
 
 ## Part II
 
-As you are working with your own predictive models (like the iris example below), make sure you know how to use pickle to save the model to a file, and also later reconstitute the model from the file.
+As you are working with your own predictive models (like the iris example below), make sure you know how to [use pickle to save the model to a file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L165-L169), and also later [reconstitute the model from the file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L181-L188).
 
 > FYI: the purpose of the code below is not to train the best model, but rather to show an example of how to use a model
 
@@ -178,6 +171,13 @@ def iris():
     return str(result)
 ```
 
+What to do when a model file is too large for GitHub / Heroku? (BONUS):
+
+  A) Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
+  B) Store the model remotely:
+    + https://aws.amazon.com/s3/
+    + https://console.cloud.google.com/storage/browser/brexitmeter-bucket/weights?authuser=1&project=brexitmeter
+
 ## Part III
 
 Training our own model...
@@ -194,7 +194,7 @@ from flask import Blueprint, request, jsonify, render_template
 from sklearn.linear_model import LogisticRegression # for example
 
 from web_app.models import User, Tweet
-from web_app.basilica_service import basilica_api_client
+from web_app.services.basilica_service import basilica_api_client
 
 stats_routes = Blueprint("stats_routes", __name__)
 
@@ -216,6 +216,8 @@ def predict():
     user_b_tweets = user_b.tweets
     #user_a_embeddings = [tweet.embedding for tweet in user_a_tweets]
     #user_b_embeddings = [tweet.embedding for tweet in user_b_tweets]
+    print("USER A", user_a.screen_name, len(user_a.tweets))
+    print("USER B", user_b.screen_name, len(user_b.tweets))
 
     print("-----------------")
     print("TRAINING THE MODEL...")
@@ -237,7 +239,8 @@ def predict():
     #result_a = classifier.predict([user_a_tweets[0].embedding])
     #result_b = classifier.predict([user_b_tweets[0].embedding])
 
-    example_embedding = basilica_api_client.embed_sentence(tweet_text)
+    basilica_api = basilica_api_client()
+    example_embedding = basilica_api.embed_sentence(tweet_text)
     result = classifier.predict([example_embedding])
     #breakpoint()
 
@@ -249,6 +252,8 @@ def predict():
         screen_name_most_likely= result[0]
     )
 ```
+
+> CHALLENGE: How can you improve the model's predictive accuracy? How many tweets from each user are being used to train the model, and is there parity there?
 
 ```html
 <!-- web_app/templates/results.html -->

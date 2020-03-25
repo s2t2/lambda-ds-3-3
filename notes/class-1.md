@@ -38,17 +38,15 @@ Flask:
   + https://flask.palletsprojects.com/en/1.1.x/quickstart/
   + https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/
   + https://flask.palletsprojects.com/en/1.1.x/blueprints/
+  + https://flask.palletsprojects.com/en/1.1.x/tutorial/static/
 
-"Twitoff" Flask App Examples:
+Flask App Examples:
 
-  + [For DS 11](https://github.com/s2t2/web-app-inclass-11/commits/master)
-  + [For DS PT3](https://github.com/s2t2/web-app-inclass-pt3/commits/prep-4-deploy)
-
-Other Flask App Examples (FYI / BONUS):
-
-  + https://github.com/prof-rossetti/web-app-starter-flask
-  + https://github.com/prof-rossetti/web-app-starter-flask-sheets (uses a google sheets datastore)
-  + https://github.com/prof-rossetti/salad-system-alchemy (MySQL version, a little old)
+  + [Twitoff for DS 11](https://github.com/s2t2/web-app-inclass-11/commits/master)
+  + [Twitoff for DS PT3](https://github.com/s2t2/web-app-inclass-pt3/commits/prep-4-deploy)
+  + https://github.com/prof-rossetti/web-app-starter-flask (BONUS / FYI)
+  + https://github.com/prof-rossetti/web-app-starter-flask-sheets (BONUS / FYI, uses a google sheets datastore)
+  + https://github.com/prof-rossetti/salad-system-alchemy (BONUS / FYI, MySQL version, a little old)
 
 Testing a Flask App (FYI / BONUS):
 

@@ -10,59 +10,32 @@ Lambda Materials:
   + https://learn.lambdaschool.com/ds/module/recpPYQdaOmZdBSYq/
   + https://github.com/LambdaSchool/DS-Unit-3-Sprint-3-Productization-and-Cloud/tree/master/module4-web-application-deployment
 
+Installing production environment dependencies:
+
+```sh
+pipenv install gunicorn psycopg2-binary
+```
+
+## Part I
+
 Heroku and the Heroku CLI:
 
   + https://heroku.com/
   + https://devcenter.heroku.com/articles/using-the-cli
   + https://github.com/prof-rossetti/intro-to-python/blob/master/notes/clis/heroku.md (BONUS)
 
-Heroku PG:
-
-  + https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres
-  + https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier
-
-Flask Migrate:
-
-  + https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date
-
-Database URL Format: `DATABASE_URL="postgres://USERNAME:PASSWORD@HOST:5432/DB_NAME`
-
-Procfile:
-
-```
-web: gunicorn "web_app:create_app()"
-```
-
-## Commands
-
-Installing production environment dependences:
+Logging in to Heroku from the CLI (first time only):
 
 ```sh
-pipenv install gunicorn psycopg2-binary
+heroku login
 ```
 
-Provisioning production database:
+Creating a new application server (MUST BE DONE FROM WITHIN THE REPOSITORY'S ROOT DIRECTORY):
 
 ```sh
 git remote -v
-heroku create
+heroku create # optionally provide a name... "heroku create my-app-name"
 git remote -v
-
-heroku config
-heroku addons:create heroku-postgresql:hobby-dev
-#> provisions a new DATABASE_URL
-heroku config
-```
-
-Configuring production environment variables:
-
-```sh
-heroku config:set BASILICA_API_KEY="_____"
-heroku config:set TWITTER_API_KEY="_____"
-heroku config:set TWITTER_API_SECRET="______"
-heroku config:set TWITTER_ACCESS_TOKEN="______"
-heroku config:set TWITTER_ACCESS_TOKEN_SECRET="_____"
-heroku config
 ```
 
 Deploying to production:
@@ -88,6 +61,8 @@ Logging into production server, running things there:
 
 ```sh
 heroku run bash
+# ... whoami
+# ... pwd
 # ... python --version
 # ... python web_app/stocks_service.py
 # ... exit
@@ -97,9 +72,74 @@ Running "detached" commands against the production server:
 
 ```sh
 heroku run "python web_app/stocks_service.py"
+```
 
+## Part II
+
+Using a "Procfile" to specify the "web" process:
+
+```sh
+web: gunicorn "web_app:create_app()"
+```
+
+Configuring production environment variables:
+
+```sh
+heroku config
+heroku config:set ALPHAVANTAGE_API_KEY="_____"
+heroku config:set BASILICA_API_KEY="_____"
+heroku config:set TWITTER_API_KEY="_____"
+heroku config:set TWITTER_API_SECRET="______"
+heroku config:set TWITTER_ACCESS_TOKEN="______"
+heroku config:set TWITTER_ACCESS_TOKEN_SECRET="_____"
+heroku config
+```
+
+## Part III
+
+Heroku PG:
+
+  + https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres
+  + https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier
+
+Flask Migrate:
+
+  + https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date
+
+Database URL Format: `DATABASE_URL="postgres://USERNAME:PASSWORD@HOST:5432/DB_NAME`
+
+Example Database URLs for local SQLite DB:
+
+```sh
+# local .env file...
+
+# mac:
+DATABASE_URL="sqlite:////Users/YOURUSERNAME/Desktop/my-web-app-12/web_app/web_app_12.db"
+
+# windows:
+DATABASE_URL="sqlite:///C:\\Users\\YOURUSERNAME\\Desktop\\TwitterApp\\web_app\\web_app_200.db"
+```
+
+Provisioning production database:
+
+```sh
+heroku config
+heroku addons:create heroku-postgresql:hobby-dev
+#> provisions a new DATABASE_URL
+heroku config
+```
+
+Migrating the production database:
+
+```sh
 heroku run "FLASK_APP=web_app flask db init"
 heroku run "FLASK_APP=web_app flask db stamp head"
 heroku run "FLASK_APP=web_app flask db migrate"
 heroku run "FLASK_APP=web_app flask db upgrade"
 ```
+
+## Part IV
+
+Optional updates to functionality and/or style.
+
+Optional student app demos.

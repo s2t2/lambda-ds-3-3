@@ -12,11 +12,11 @@ Lambda Materials:
   + https://learn.lambdaschool.com/ds/module/recKGvwkPaEsfnwDL/
   + https://github.com/LambdaSchool/DS-Unit-3-Sprint-3-Productization-and-Cloud/tree/master/module1-web-application-development-with-flask
 
-Setup repo:
+Create a new repo on GitHub, then get it setup locally:
 
 ```sh
 git clone YOUR_REMOTE_ADDRESS
-cd ~/Desktop/my-web-app-repo-name
+cd your-repo-name
 pipenv --python 3.7
 ```
 
@@ -90,6 +90,10 @@ flask run
 
 ## Part II
 
+HTML:
+  + https://www.w3schools.com/html/html_basic.asp
+  + https://www.w3schools.com/html/html_forms.asp
+  
 Flask View Templates:
   + https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/
   + https://jinja.palletsprojects.com/en/2.11.x/templates/
@@ -383,12 +387,14 @@ from web_app.models import db, migrate
 from web_app.routes.home_routes import home_routes
 from web_app.routes.book_routes import book_routes
 
+DATABASE_URI = "sqlite:///web_app_99.db" # using relative filepath
+#DATABASE_URI = "sqlite:////Users/Username/Desktop/your-repo-name/web_app_99.db" # using absolute filepath on Mac (recommended)
+#DATABASE_URI = "sqlite:///C:\\Users\\Username\\Desktop\\your-repo-name\\web_app_99.db" # using absolute filepath on Windows (recommended) h/t: https://stackoverflow.com/a/19262231/670433
+
 def create_app():
     app = Flask(__name__)
 
-    #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///web_app_11.db"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////Users/mjr/Desktop/web-app-inclass-11/web_app_12.db"
-
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
     db.init_app(app)
     migrate.init_app(app, db)
 

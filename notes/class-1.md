@@ -86,6 +86,8 @@ flask run
 
 > NOTE: right now our app is located in the "hello.py" file, which is why we use `FLASK_APP=hello.py` but we will soon be changing this when our app grows larger...
 
+> NOTE: if you're on Windows and `export` doesn't work for you, try `set` instead.
+
 ## Part II
 
 Flask View Templates:

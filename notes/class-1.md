@@ -57,7 +57,7 @@ Testing a Flask App (FYI / BONUS):
 Defining a basic Flask App:
 
 ```py
-# app.py
+# hello.py
 
 from flask import Flask
 
@@ -77,14 +77,14 @@ Running a Flask App:
 
 ```sh
 # Mac:
-FLASK_APP=app.py flask run
+FLASK_APP=hello.py flask run
 
 # Windows:
-set FLASK_APP=app.py # one-time thing, to set the env var
+export FLASK_APP=hello.py # one-time thing, to set the env var
 flask run
 ```
 
-> NOTE: right now our app is located in the "app.py" file, which is why we use `FLASK_APP=app.py` but we will soon be changing this when our app grows larger...
+> NOTE: right now our app is located in the "hello.py" file, which is why we use `FLASK_APP=hello.py` but we will soon be changing this when our app grows larger...
 
 ## Part II
 

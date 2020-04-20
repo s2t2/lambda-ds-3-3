@@ -12,10 +12,10 @@ Lambda Materials:
   + https://learn.lambdaschool.com/ds/module/recKGvwkPaEsfnwDL/
   + https://github.com/LambdaSchool/DS-Unit-3-Sprint-3-Productization-and-Cloud/tree/master/module1-web-application-development-with-flask
 
-Setup virtual env:
+Setup repo:
 
 ```sh
-mkdir ~/Desktop/my-web-app-repo-name
+git clone YOUR_REMOTE_ADDRESS
 cd ~/Desktop/my-web-app-repo-name
 pipenv --python 3.7
 ```

@@ -3,6 +3,8 @@
 Notes and reference material to support an instructional unit about database-backed web applications.
 
 Step-by-step "Twitoff App" solution walkthroughs:
+  + https://github.com/s2t2/my-web-app-12/commits/master
+  + https://github.com/s2t2/web-app-inclass-pt3/commits/master
   + https://github.com/s2t2/web-app-inclass-11/commits/master
   + https://github.com/s2t2/my-web-app-12/commits/master
 

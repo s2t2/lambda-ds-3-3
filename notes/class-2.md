@@ -36,6 +36,8 @@ TWITTER_ACCESS_TOKEN="_______________________"
 TWITTER_ACCESS_TOKEN_SECRET="_______________________"
 ```
 
+> IMPORTANT: remember to add a `.env` entry into the ".gitignore" file, to prevent secret creds from being tracked in version control
+
 ## Part I
 
 Using the requests package to issue HTTP requests (BONUS):
@@ -196,7 +198,7 @@ def get_user(screen_name=None):
 
 ```
 
-Twitter Routes (Iteration 2, storing users in the database):
+Twitter Routes (Iteration 2, storing users in the database, first need to implement the respective [`User` and `Tweet` model classes](/reference_code/models.py)):
 
 ```py
 # web_app/routes/twitter_routes.py

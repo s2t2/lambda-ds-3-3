@@ -177,8 +177,8 @@ def iris():
 
 What to do when a model file is too large for GitHub / Heroku? (BONUS):
 
-  A) Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
-  B) Store the model remotely:
+ + Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
+ + Store the model remotely:
     + https://aws.amazon.com/s3/
     + https://console.cloud.google.com/storage/browser/brexitmeter-bucket/weights?authuser=1&project=brexitmeter
 

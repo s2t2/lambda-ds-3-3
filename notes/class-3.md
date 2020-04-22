@@ -43,9 +43,13 @@ def seed_db():
     # TODO: refactor the existing user and tweet storage logic from our twitter_routes into a re-usable function
     # ... so we can "seed" our database with some example users and tweets
     # ... to ensure that it is ready to make predictions later
+    
+    # FYI: you might run into Timeout errors, which you'll need to think about how to avoid
 
     return jsonify({"message": "DB SEEDED OK (TODO)"})
 ```
+
+> FYI: you could implement your own API Key authentication to protect these admin routes, or consider using the [`Flask-BasicAuth` package](https://flask-basicauth.readthedocs.io/en/latest/)
 
 Updating existing routing and views to facilitate the storage of Tweets and Users, and the desired application flow.
 

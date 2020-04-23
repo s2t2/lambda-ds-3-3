@@ -64,14 +64,14 @@ heroku run bash
 # ... whoami
 # ... pwd
 # ... python --version
-# ... python web_app/stocks_service.py
+# ... python web_app/services/stocks_service.py
 # ... exit
 ```
 
 Running "detached" commands against the production server:
 
 ```sh
-heroku run "python web_app/stocks_service.py"
+heroku run "python web_app/services/stocks_service.py"
 ```
 
 ## Part II

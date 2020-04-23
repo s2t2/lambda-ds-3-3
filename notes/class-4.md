@@ -132,6 +132,13 @@ heroku config
 Migrating the production database:
 
 ```sh
+# first login to the server, then run the migration commands there:
+heroku run bash
+#> FLASK_APP=web_app flask db init
+#> FLASK_APP=web_app flask db migrate
+#> FLASK_APP=web_app flask db upgrade
+
+# that should work, but alternatively you might be able to run these detached commands (if you didn't ignore your migrations dir):
 heroku run "FLASK_APP=web_app flask db init"
 heroku run "FLASK_APP=web_app flask db stamp head"
 heroku run "FLASK_APP=web_app flask db migrate"

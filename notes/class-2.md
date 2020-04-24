@@ -40,7 +40,10 @@ TWITTER_ACCESS_TOKEN_SECRET="_______________________"
 
 ## Part I
 
-Using the requests package to issue HTTP requests (BONUS):
+HTTP Slides (BONUS):
+  + https://docs.google.com/presentation/d/1K83U0VjYob6dgdRodbidWBtFxK4Q_9h8zojzmto2wJY/edit#slide=id.g5846519fbe_0_1904
+  
+Using the `requests` package to issue HTTP requests (BONUS - SPRINT CHALLENGE HINT):
 
   + https://github.com/psf/requests
   + https://requests.readthedocs.io/en/master/

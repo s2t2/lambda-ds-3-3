@@ -296,3 +296,32 @@ def get_user(screen_name=None):
     return "OK"
     #return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
 ```
+
+
+```html
+<!-- web_app/templates/user.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Twitter User: {{ user.screen_name }} </h2>
+
+    <p>Name: {{ user.name }}</p>
+    <p>Location: {{ user.location }}</p>
+    <p>Followers: {{ user.followers_count }}</p>
+
+    {% if tweets %}
+        <ul>
+        {% for status in tweets %}
+            <li>{{ status.full_text }}</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No tweets found.</p>
+    {% endif %}
+
+{% endblock %}
+```
+
+> CHALLENGE: Can you display the tweets in a twitter bootstrap table, instead of a list?

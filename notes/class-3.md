@@ -17,7 +17,7 @@ Installing Package Dependencies:
 pipenv install scikit-learn
 ```
 
-## Part I
+## Part I - Admin Routes and Authentication
 
 Implementing admin routes to help us reset our database:
 
@@ -49,61 +49,32 @@ def seed_db():
     return jsonify({"message": "DB SEEDED OK (TODO)"})
 ```
 
-> FYI: you could implement your own API Key authentication to protect these admin routes, or consider using the [`Flask-BasicAuth` package](https://flask-basicauth.readthedocs.io/en/latest/)
+> FYI: you could implement your own API Key authentication to protect these admin routes (see example below), or consider using the [`Flask-BasicAuth` package](https://flask-basicauth.readthedocs.io/en/latest/)
 
-Updating existing routing and views to facilitate the storage of Tweets and Users, and the desired application flow.
+Example API Key Authentication:
 
 ```py
-# web_app/routes/twitter_routes.py
-
 # ...
 
-@twitter_routes.route("/users")
-@twitter_routes.route("/users.json")
-def list_users():
-    db_users = User.query.all()
-    users_response = parse_records(db_users)
-    return jsonify(users_response)
+API_KEY = "abc123" # TODO: set as secret env var
 
-@twitter_routes.route("/users/<screen_name>")
-def get_user(screen_name=None):
-    print(screen_name)
+# GET /admin/db/reset?api_key=abc123
+@admin_routes.route("/admin/db/reset")
+def reset_db():
+    print("URL PARMS", dict(request.args))
 
-    # ...
-
-    return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
-
+    if "api_key" in dict(request.args) and request.args["api_key"] == API_KEY:
+        print(type(db))
+        db.drop_all()
+        db.create_all()
+        return jsonify({"message": "DB RESET OK"})
+    else:
+        flash("OOPS Permission Denied", "danger")
+        return redirect("/users")
 ```
 
-```html
-<!-- web_app/templates/user.html -->
 
-{% extends "layout.html" %}
-
-{% block content %}
-    <h2>Twitter User: {{ user.screen_name }} </h2>
-
-    <p>Name: {{ user.name }}</p>
-    <p>Location: {{ user.location }}</p>
-    <p>Followers: {{ user.followers_count }}</p>
-
-    {% if tweets %}
-        <ul>
-        {% for status in tweets %}
-            <li>{{ status.full_text }}</li>
-        {% endfor %}
-        </ul>
-
-    {% else %}
-        <p>No tweets found.</p>
-    {% endif %}
-
-{% endblock %}
-```
-
-> CHALLENGE: Can you display the tweets in a twitter bootstrap table, instead of a list?
-
-## Part II
+## Part II - Saving and Loading Pre-trained Models
 
 As you are working with your own predictive models (like the iris example below), make sure you know how to [use pickle to save the model to a file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L165-L169), and also later [reconstitute the model from the file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L181-L188).
 
@@ -182,7 +153,7 @@ What to do when a model file is too large for GitHub / Heroku? (BONUS):
     + https://aws.amazon.com/s3/
     + https://console.cloud.google.com/storage/browser/brexitmeter-bucket/weights?authuser=1&project=brexitmeter
 
-## Part III
+## Part III - Training Models On the Fly
 
 Training our own model...
 
@@ -313,3 +284,12 @@ def predict():
 ```
 
 > CHALLENGE: Instead of hard-coding the drop-down menu's options, can you revise this last jinja template to loop through all existing users in the database to populate the options?
+
+
+
+
+
+
+
+
+

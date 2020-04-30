@@ -23,6 +23,7 @@ Heroku and the Heroku CLI:
   + https://heroku.com/
   + https://devcenter.heroku.com/articles/using-the-cli
   + https://github.com/prof-rossetti/intro-to-python/blob/master/notes/clis/heroku.md (BONUS)
+  + ["Delivery and Deployment" Slides](https://docs.google.com/presentation/d/1K83U0VjYob6dgdRodbidWBtFxK4Q_9h8zojzmto2wJY/edit#slide=id.g5846519fbe_0_2378) (BONUS)
 
 Logging in to Heroku from the CLI (first time only):
 

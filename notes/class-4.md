@@ -75,28 +75,15 @@ Running "detached" commands against the production server:
 heroku run "python web_app/services/stocks_service.py"
 ```
 
-## Part II
-
 Using a "Procfile" to specify the "web" process:
 
 ```sh
 web: gunicorn "web_app:create_app()"
 ```
 
-Configuring production environment variables:
 
-```sh
-heroku config
-heroku config:set ALPHAVANTAGE_API_KEY="_____"
-heroku config:set BASILICA_API_KEY="_____"
-heroku config:set TWITTER_API_KEY="_____"
-heroku config:set TWITTER_API_SECRET="______"
-heroku config:set TWITTER_ACCESS_TOKEN="______"
-heroku config:set TWITTER_ACCESS_TOKEN_SECRET="_____"
-heroku config
-```
 
-## Part III
+## Part II
 
 Heroku PG:
 
@@ -144,6 +131,22 @@ heroku run "FLASK_APP=web_app flask db init"
 heroku run "FLASK_APP=web_app flask db stamp head"
 heroku run "FLASK_APP=web_app flask db migrate"
 heroku run "FLASK_APP=web_app flask db upgrade"
+```
+
+## Part III
+
+
+Configuring production environment variables:
+
+```sh
+heroku config
+heroku config:set ALPHAVANTAGE_API_KEY="_____"
+heroku config:set BASILICA_API_KEY="_____"
+heroku config:set TWITTER_API_KEY="_____"
+heroku config:set TWITTER_API_SECRET="______"
+heroku config:set TWITTER_ACCESS_TOKEN="______"
+heroku config:set TWITTER_ACCESS_TOKEN_SECRET="_____"
+heroku config
 ```
 
 ## Part IV

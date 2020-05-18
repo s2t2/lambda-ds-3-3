@@ -295,7 +295,7 @@ Shared layout, basic:
       <!-- FOOTER -->
       <div id="footer">
         <hr>
-        &copy; Copyright 2019 Prof. MJ Rossetti |
+        &copy; Copyright 2020 [YOUR NAME HERE!] |
         <a href="https://github.com/prof-rossetti/">source</a>
       </div>
     </div>

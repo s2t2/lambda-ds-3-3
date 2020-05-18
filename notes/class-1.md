@@ -31,7 +31,7 @@ pipenv install Flask Flask-SQLAlchemy Flask-Migrate
 HTTP Slides:
   + https://docs.google.com/presentation/d/1K83U0VjYob6dgdRodbidWBtFxK4Q_9h8zojzmto2wJY/edit#slide=id.g5846519fbe_0_1904
 
-Flask:
+Flask Basics:
 
   + https://github.com/pallets/flask
   + https://palletsprojects.com/p/flask/
@@ -42,9 +42,7 @@ Flask:
 
 Flask App Examples:
 
-  + [Twitoff for DS 12](https://github.com/s2t2/my-web-app-12/commits/master)
-  + [Twitoff for DS 11](https://github.com/s2t2/web-app-inclass-11/commits/master)
-  + [Twitoff for DS PT3](https://github.com/s2t2/web-app-inclass-pt3/commits/prep-4-deploy)
+  + [Twitoff App Solutions](https://github.com/s2t2/lambda-ds-3-3/blob/master/README.md#solutions)
   + https://github.com/prof-rossetti/web-app-starter-flask (BONUS / FYI)
   + https://github.com/prof-rossetti/web-app-starter-flask-sheets (BONUS / FYI, uses a google sheets datastore)
   + https://github.com/prof-rossetti/salad-system-alchemy (BONUS / FYI, MySQL version, a little old)

@@ -38,7 +38,7 @@ TWITTER_ACCESS_TOKEN_SECRET="_______________________"
 
 > IMPORTANT: remember to add a `.env` entry into the ".gitignore" file, to prevent secret creds from being tracked in version control
 
-## Part I
+## Part I (BONUS AFTER CLASS)
 
 Using the `requests` package to issue HTTP requests (BONUS - SPRINT CHALLENGE HINT):
 
@@ -74,6 +74,8 @@ print("LATEST CLOSING PRICE:", latest_close)
 
 #breakpoint()
 ```
+
+## Part II
 
 The Basilica API:
 
@@ -118,7 +120,7 @@ if __name__ == "__main__":
 
 ```
 
-## Part II
+## Part III
 
 The Twitter API and Tweepy Package:
 
@@ -174,7 +176,7 @@ if __name__ == "__main__":
     #    print("-------------")
 ```
 
-## Part III
+## Part IV
 
 Saving tweets and users in the database.
 

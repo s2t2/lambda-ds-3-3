@@ -76,6 +76,8 @@ def reset_db():
 
 ## Part II - Saving and Loading Pre-trained Models
 
+  + https://docs.python.org/3/library/pickle.html
+  
 As you are working with your own predictive models (like the iris example below), make sure you know how to [use pickle to save the model to a file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L165-L169), and also later [reconstitute the model from the file](https://github.com/s2t2/titanic-survival-py/blob/3a5827ad5ce57ebaf12b21b31dfd38494b28bff6/app/classifier.py#L181-L188).
 
 > FYI: the purpose of the code below is not to train the best model, but rather to show an example of how to use a model

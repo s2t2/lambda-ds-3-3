@@ -285,7 +285,7 @@ def predict():
 {% endblock %}
 ```
 
-> CHALLENGE: Instead of hard-coding the drop-down menu's options, can you revise this last jinja template to loop through all existing users in the database to populate the options?
+> CHALLENGE / TODO: Instead of hard-coding the drop-down menu's options, can you revise this last jinja template to loop through all existing users in the database to populate the options?
 
 
 

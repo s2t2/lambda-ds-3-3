@@ -350,6 +350,9 @@ class Book(db.Model):
     title = db.Column(db.String(128))
     author_id = db.Column(db.String(128))
 
+    def __repr__(self):
+        return f"<Book {self.id} {self.title}>"
+    
 def parse_records(database_records):
     """
     A helper method for converting a list of database record objects into a list of dictionaries, so they can be returned as JSON

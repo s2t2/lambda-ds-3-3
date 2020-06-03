@@ -82,36 +82,9 @@ export FLASK_APP=hello.py # one-time thing, to set the env var
 flask run
 ```
 
-> NOTE: right now our app is located in the "hello.py" file, which is why we use `FLASK_APP=hello.py` but we will soon be changing this when our app grows larger...
-
 > NOTE: if you're on Windows and `export` doesn't work for you, try `set` instead.
 
-## Part II
-
-HTML:
-  + https://www.w3schools.com/html/html_basic.asp
-  + https://www.w3schools.com/html/html_forms.asp
-  
-Flask View Templates:
-  + https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/
-  + https://jinja.palletsprojects.com/en/2.11.x/templates/
-  + https://jinja.palletsprojects.com/en/2.11.x/tricks/
-
-Twitter Bootstrap (BONUS):
-  + https://getbootstrap.com/
-  + https://getbootstrap.com/docs/4.4/getting-started/introduction/
-  + https://getbootstrap.com/docs/4.0/components/navbar/
-  + https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/
-  + https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes
-  + https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
-
-Using Twitter Bootstrap to improve the look and feel of your HTML view templates, and inheriting HTML contents from a common base layout, and other template examples (BONUS):
-  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/layout.html
-  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/index.html
-  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/products/index.html
-
-Example of flash and redirect (BONUS):
-  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/routes/products_api.py#L31-L32
+> NOTE: right now our app is located in the "hello.py" file, which is why we use `FLASK_APP=hello.py` but we will soon be changing this when our app grows larger...
 
 Init file in "web_app" directory:
 
@@ -152,6 +125,34 @@ def index():
 def about():
     return "About me"
 ```
+
+## Part II
+
+HTML:
+  + https://www.w3schools.com/html/html_basic.asp
+  + https://www.w3schools.com/html/html_forms.asp
+  
+Flask View Templates:
+  + https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/
+  + https://jinja.palletsprojects.com/en/2.11.x/templates/
+  + https://jinja.palletsprojects.com/en/2.11.x/tricks/
+
+Twitter Bootstrap (BONUS):
+  + https://getbootstrap.com/
+  + https://getbootstrap.com/docs/4.4/getting-started/introduction/
+  + https://getbootstrap.com/docs/4.0/components/navbar/
+  + https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/
+  + https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes
+  + https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
+
+Using Twitter Bootstrap to improve the look and feel of your HTML view templates, and inheriting HTML contents from a common base layout, and other template examples (BONUS):
+  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/layout.html
+  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/index.html
+  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/templates/products/index.html
+
+Example of flash and redirect (BONUS):
+  + https://github.com/prof-rossetti/web-app-starter-flask-sheets/blob/master/web_app/routes/products_api.py#L31-L32
+
 
 Book routes:
 

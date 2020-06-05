@@ -38,7 +38,7 @@ TWITTER_ACCESS_TOKEN_SECRET="_______________________"
 
 > IMPORTANT: remember to add a `.env` entry into the ".gitignore" file, to prevent secret creds from being tracked in version control
 
-## Part I (BONUS AFTER CLASS)
+## Part I (Bonus)
 
 Using the `requests` package to issue HTTP requests (BONUS - SPRINT CHALLENGE HINT):
 

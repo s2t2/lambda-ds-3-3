@@ -233,7 +233,7 @@ def predict():
 > CHALLENGE: How can you improve the model's predictive accuracy? How many tweets from each user are being used to train the model, and is there parity there?
 
 ```html
-<!-- web_app/templates/results.html -->
+<!-- web_app/templates/prediction_results.html -->
 
 {% extends "layout.html" %}
 
@@ -248,7 +248,7 @@ def predict():
 ```
 
 ```html
-<!-- web_app/templates/results.html -->
+<!-- web_app/templates/prediction_form.html -->
 
 
 {% extends "layout.html" %}

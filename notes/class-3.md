@@ -17,7 +17,7 @@ Installing Package Dependencies:
 pipenv install scikit-learn
 ```
 
-## Part I - Admin Routes and Authentication
+## Part 0 - Admin Routes and Authentication (BONUS)
 
 Implementing admin routes to help us reset our database:
 
@@ -74,7 +74,7 @@ def reset_db():
 ```
 
 
-## Part II - Saving and Loading Pre-trained Models
+## Part I - Saving and Loading Pre-trained Models
 
   + https://docs.python.org/3/library/pickle.html
   
@@ -83,7 +83,7 @@ As you are working with your own predictive models (like the iris example below)
 > FYI: the purpose of the code below is not to train the best model, but rather to show an example of how to use a model
 
 ```py
-# web_app/classifier.py
+# web_app/iris_classifier.py
 
 import os
 import pickle
@@ -136,7 +136,7 @@ Integrating the model into our app (just an example):
 from flask import Blueprint, request, jsonify, render_template
 from sklearn.datasets import load_iris # just to have some data to use when predicting
 
-from web_app.classifier import load_model
+from web_app.iris_classifier import load_model
 
 stats_routes = Blueprint("stats_routes", __name__)
 
@@ -148,14 +148,14 @@ def iris():
     return str(result)
 ```
 
-What to do when a model file is too large for GitHub / Heroku? (BONUS):
+What to do when a model file is too large for GitHub / Heroku?
 
- + Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
- + Store the model remotely:
+ + A) Ask the person who created the model to "reduce dimensionality" so the model file will be smaller, may require prediction accuracy trade-offs
+ + B) Store the model remotely:
     + https://aws.amazon.com/s3/
     + https://console.cloud.google.com/storage/browser/brexitmeter-bucket/weights?authuser=1&project=brexitmeter
 
-## Part III - Training Models On the Fly
+## Part II - Training Models On the Fly
 
 Training our own model...
 
@@ -260,6 +260,7 @@ def predict():
 
     <form action="/predict" method="POST">
 
+        <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
         <label>Twitter User A:</label>
         <select name="screen_name_a">
             <option value="elonmusk" selected="true">@elonmusk</option>
@@ -268,6 +269,7 @@ def predict():
         </select>
         <br>
 
+        <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
         <label>Twitter User B:</label>
         <select name="screen_name_b">
             <option value="elonmusk">@elonmusk</option>

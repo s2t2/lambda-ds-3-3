@@ -378,6 +378,8 @@ def parse_records(database_records):
     return parsed_records
 ```
 
+> WHY BOOKS? The `Book` class is just an example class so we can learn how to store and retrieve records. The assignment mentions making `User` class and/or a `Tweet class`. You can feel free to use whatever class you want for now. Next class we'll fetch user and tweet data from the Twitter API, at which point we'll be better positioned to know what attributes exist, which will inform how we define the `User` and `Tweet` classes.
+
 Updating app construction:
 
 ```py

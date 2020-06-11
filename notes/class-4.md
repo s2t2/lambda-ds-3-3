@@ -149,8 +149,4 @@ heroku config:set TWITTER_ACCESS_TOKEN_SECRET="_____"
 heroku config
 ```
 
-## Part IV
 
-Optional updates to functionality and/or style.
-
-Optional student app demos.

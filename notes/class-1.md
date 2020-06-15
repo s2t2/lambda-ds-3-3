@@ -128,6 +128,8 @@ def about():
 
 ## Part II
 
+> FYI: As a basic requirement for this part of class, we'll just return some plain HTML pages. Only if you have time and interest should you also concern yourself with the shared layouts and the Twitter Bootstrap styling. We might have some time to review them in-class during class 4, otherwise all the info and starter code you need is below. 
+
 HTML:
   + https://www.w3schools.com/html/html_basic.asp
   + https://www.w3schools.com/html/html_forms.asp

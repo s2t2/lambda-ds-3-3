@@ -126,16 +126,18 @@ def about():
     return "About me"
 ```
 
-New invocation:
+Running the Flask App, after new "web_app" organizational structure in place:
 
 ```sh
 # Mac:
 FLASK_APP=web_app flask run
 
 # Windows:
-export FLASK_APP=web_app # one-time thing, to set the env var
+set FLASK_APP=web_app # one-time thing, to set the env var
 flask run
 ```
+
+
 ## Part II
 
 > FYI: As a basic requirement for this part of class, we'll just return some plain HTML pages. Only if you have time and interest should you also concern yourself with the shared layouts and the Twitter Bootstrap styling. We might have some time to review them in-class during class 4, otherwise all the info and starter code you need is below. 
@@ -309,7 +311,7 @@ Shared layout, basic:
       <div id="footer">
         <hr>
         &copy; Copyright 2020 [YOUR NAME HERE!] |
-        <a href="https://github.com/prof-rossetti/">source</a>
+        <a href="https://github.com/YOUR_NAME/YOUR_REPO">source</a>
       </div>
     </div>
 
@@ -320,17 +322,6 @@ Shared layout, basic:
 ... Or optionally reference this [Twitter Bootstrap Layout](/reference_code/templates/bootstrap_layout.html).
 
 ... Or this slightly more complex [Twitter Bootstrap Navbar Layout](/reference_code/templates/bootstrap_nav_layout.html), in which case you'll also need to add `{% set active_page = "books" %}` to the "books.html" and `{% set active_page = "new_book" %}` to the "new_book.html".
-
-Running the Flask App, after new "web_app" organizational structure in place:
-
-```sh
-# Mac:
-FLASK_APP=web_app flask run
-
-# Windows:
-set FLASK_APP=web_app # one-time thing, to set the env var
-flask run
-```
 
 ## Part III
 

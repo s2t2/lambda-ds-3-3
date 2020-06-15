@@ -126,6 +126,16 @@ def about():
     return "About me"
 ```
 
+New invocation:
+
+```sh
+# Mac:
+FLASK_APP=web_app flask run
+
+# Windows:
+export FLASK_APP=web_app # one-time thing, to set the env var
+flask run
+```
 ## Part II
 
 > FYI: As a basic requirement for this part of class, we'll just return some plain HTML pages. Only if you have time and interest should you also concern yourself with the shared layouts and the Twitter Bootstrap styling. We might have some time to review them in-class during class 4, otherwise all the info and starter code you need is below. 

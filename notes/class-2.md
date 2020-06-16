@@ -7,9 +7,10 @@
 
 Topics / Agenda:
 
-  1. Integrating with an example API
+  1. Integrating with an example API (bonus)
   2. Integrating with the Twitter API
   3. Integrating with the Basilica API
+  4. Storing API data in the database
 
 Lambda Materials:
 
@@ -36,18 +37,20 @@ TWITTER_ACCESS_TOKEN="_______________________"
 TWITTER_ACCESS_TOKEN_SECRET="_______________________"
 ```
 
-> IMPORTANT: remember to add a `.env` entry into the ".gitignore" file, to prevent secret creds from being tracked in version control
+> IMPORTANT: remember to add a `.env` entry into the ".gitignore" file, to prevent secret creds from being tracked in version control!!
 
-## Part I (Bonus)
+## Part 0 (Bonus / SC Hint)
 
-Using the `requests` package to issue HTTP requests (BONUS - SPRINT CHALLENGE HINT):
+If you're working with an API that doesn't provide its own Python package interface, one option is to use the `requests` package to directly issue HTTP requests to the given API.
+
+Using the `requests` package to issue HTTP requests:
 
   + https://github.com/psf/requests
   + https://requests.readthedocs.io/en/master/
   + https://raw.githubusercontent.com/prof-rossetti/intro-to-python/master/data/products.json
-  + (BONUS) https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/requests.md
+  + https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/requests.md
 
-A simple example API to get started with (can use API KEY "abc123") (BONUS):
+A simple example API to get started with (can use API KEY "abc123"):
 
   + https://www.alphavantage.co/
   + https://www.alphavantage.co/documentation/#daily
@@ -66,7 +69,7 @@ print(type(response)) #> <class 'requests.models.Response'>
 print(response.status_code) #> 200
 print(type(response.text)) #> <class 'str'>
 
-parsed_response = json.loads(response.text)
+parsed_response = json.loads(response.text) # transforms the string response into a usable python datatype (list or dict)
 print(type(parsed_response)) #> <class 'dict'>
 
 latest_close = parsed_response["Time Series (Daily)"]["2020-02-25"]["4. close"]
@@ -75,7 +78,7 @@ print("LATEST CLOSING PRICE:", latest_close)
 #breakpoint()
 ```
 
-## Part II
+## Part I
 
 The Basilica API:
 
@@ -120,7 +123,7 @@ if __name__ == "__main__":
 
 ```
 
-## Part III
+## Part II
 
 The Twitter API and Tweepy Package:
 
@@ -176,7 +179,7 @@ if __name__ == "__main__":
     #    print("-------------")
 ```
 
-## Part IV
+## Part III
 
 Saving tweets and users in the database.
 
